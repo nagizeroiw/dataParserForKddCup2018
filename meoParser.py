@@ -34,10 +34,10 @@ for meo_file in meo_files:
         for column_name in data.columns:
             if 'Unnamed' in column_name:
                 continue
-            if meo_columns[column_name] == 'station_id':
-                the_meo[meo_columns[column_name]] = row[column_name][:-4]
-            else:
-                the_meo[meo_columns[column_name]] = row[column_name]
+            the_meo[meo_columns[column_name]] = row[column_name]
+            if meo_columns[column_name] == 'station_id' and isinstance(row[column_name], str):
+                if row[column_name][-4:] == '_meo':
+                    the_meo[meo_columns[column_name]] = row[column_name][:-4]
         meo_data.append(the_meo)
     f.close()
 

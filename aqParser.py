@@ -34,10 +34,10 @@ for aq_file in aq_files:
         for column_name in data.columns:
             if 'Unnamed' in column_name:
                 continue
-            if aq_columns[column_name] == 'station_id':
-                the_aq[aq_columns[column_name]] = row[column_name][:-3]
-            else:
-                the_aq[aq_columns[column_name]] = row[column_name]
+            the_aq[aq_columns[column_name]] = row[column_name]
+            if aq_columns[column_name] == "station_id" and isinstance(row[column_name], str):
+                if row[column_name][-3:] == "_aq":
+                    the_aq[aq_columns[column_name]] = row[column_name][:-3]
         aq_data.append(the_aq)
     f.close()
 
